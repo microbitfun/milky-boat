@@ -11,21 +11,32 @@ radio.onReceivedNumber(function (receivedNumber) {
         strip.show()
         basic.showArrow(ArrowNames.South)
     }
-    if (receivedNumber == 30) {
+    if (receivedNumber == 40) {
         kitronik_servo_lite.turnLeft(90)
+        strip.showColor(neopixel.colors(NeoPixelColors.Blue))
         strip.show()
         basic.showArrow(ArrowNames.West)
     }
-    if (receivedNumber == 40) {
+    if (receivedNumber == 30) {
         kitronik_servo_lite.turnRight(90)
+        strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
         strip.show()
         basic.showArrow(ArrowNames.East)
     }
     if (receivedNumber == 50) {
         kitronik_servo_lite.stop()
+        lights()
         basic.showIcon(IconNames.No)
     }
 })
+function lights () {
+    strip.showRainbow(1, 360)
+    for (let index = 0; index < 10; index++) {
+        strip.rotate(1)
+        strip.show()
+        basic.pause(100)
+    }
+}
 input.onButtonPressed(Button.A, function () {
     radio.sendNumber(10)
     basic.showArrow(ArrowNames.North)
@@ -51,4 +62,5 @@ radio.setGroup(10)
 strip = neopixel.create(DigitalPin.P0, 5, NeoPixelMode.RGB)
 strip.showRainbow(1, 360)
 strip.show()
+lights()
 basic.showIcon(IconNames.Heart)
